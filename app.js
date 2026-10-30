@@ -12,10 +12,40 @@ const world = new Globe(document.getElementById('globeViz'))
             lng: lon,
             size: 0.075,
             color: 'white',
-            name: 'San Francisco'
+            name: ''
       }])
       .pointAltitude('size')
       .pointColor('color')
       .pointRadius(0.5);
 
 world.pointOfView({ lat: lat, lng: lon, altitude: 2.5 }, 0);
+
+//Fetch city info
+const cityName = document.getElementById('cityInfo');
+
+if (!navigator.geolocation) {
+      cityName.textContent = "Geolocation is not supported by your browser.";
+      console.log("No Location Support On This Browser");
+}
+
+cityName.textContent = "Locating...";
+
+navigator.geolocation.getCurrentPosition(
+      async (position) => {
+      const { latitude, longitude } = position.coords;
+
+      try {
+            const response = await fetch(`https://api.bigdatacloud.net/data/reverse-geocode-client`);
+            const data = await response.json();
+
+            const city = data.city || data.locality || data.principalSubdivision || "Unknown City";
+            cityName.textContent = `${city}`;
+      } catch (error) {
+            cityName.textContent = "Error fetching city name.";
+            console.error(error);
+      }
+      },
+      (error) => {
+      cityName.textContent = "Permission denied or location unavailable.";
+      }
+);
