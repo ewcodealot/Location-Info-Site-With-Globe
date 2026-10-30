@@ -4,6 +4,7 @@ body {
     margin: 0;
     background-color:black;
     font-family: 'Space Grotesk', sans-serif;
+    color:white;
 }
 #globeViz {
     z-index: 0;
@@ -13,13 +14,25 @@ body {
 }
 #info {
     padding:10px;
+    display:grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr));
+    gap: 10px;
 }
 #cityInfo {
-    color:white;
     z-index: 1;
+}
+#cityInfo h2 {
+    line-height: 0.7;
 }
 .glass {
     background: rgba(0, 0, 0, 0.3);
     backdrop-filter: blur(3px);
     -webkit-backdrop-filter: blur(3px);
+    box-shadow: inset 10px 10px 35px #1b1b1d,
+             inset -10px -10px 35px #000000;
+    border-radius: 20px;
+    padding-top:1px;
+    padding-bottom:5px;
+    padding-left:20px;
+    padding-right:20px;
 }

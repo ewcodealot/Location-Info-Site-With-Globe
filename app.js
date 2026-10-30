@@ -22,6 +22,12 @@ const world = new Globe(document.getElementById('globeViz'))
 
 world.pointOfView({ lat: lat, lng: lon, altitude: 2.5 }, 0);
 
+window.addEventListener('resize', () => {
+      world.width(window.innerWidth).height(window.innerHeight);
+});
+
+
+
 //Fetch city info
 const cityName = document.getElementById('cityName');
 const coordinates = document.getElementById('coordinates');
